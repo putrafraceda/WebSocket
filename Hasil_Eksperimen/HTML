@@ -1,0 +1,38 @@
+html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat WebSocket</title>
+  <style>
+    #messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; }
+    #form { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div id="messages"></div>
+  <form id="form">
+    <input id="name" placeholder="Nama" required>
+    <input id="input" placeholder="Pesan" required>
+    <button>Kirim</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const name = document.getElementById('name');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value && name.value) {
+        socket.emit('chat message', {
+          name: name.value,
+          text: input.value
+        });
+        input.value = '';
+      }
+    });
