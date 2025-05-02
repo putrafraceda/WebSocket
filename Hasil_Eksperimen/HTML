@@ -36,3 +36,12 @@ html
         input.value = '';
       }
     });
+   socket.on('chat message', (msg) => {
+      const item = document.createElement('div');
+      item.textContent = `${msg.name}: ${msg.text}`;
+      messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
+    });
+  </script>
+</body>
+</html>
